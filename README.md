@@ -11,6 +11,7 @@ Você pode encontrar os originais em:
 
 ## Tecnologias Utilizadas
 
+- [.Net](https://dotnet.microsoft.com/)
 - [Visual Studio Code](https://code.visualstudio.com)
 - [Docker](https://www.docker.com)
 - [SQL Server](https://www.microsoft.com/sql-server)
