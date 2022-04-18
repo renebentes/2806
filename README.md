@@ -23,8 +23,9 @@ Há links específicos para cada commit de finalização de uma aula.
 
 ### Lista de Aulas
 
-| Aulas | Descrição |
-| ----- | --------- |
+| Aulas                            | Descrição                      |
+| -------------------------------- | ------------------------------ |
+| [aula-1-5](../../commit/a3ac0be) | Introdução - Connection String |
 
 ## Autor
 
