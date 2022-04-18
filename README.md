@@ -1,4 +1,4 @@
-# 2806 - Curso 2806 - Acesso à dados com C#, .NET 5, Dapper e SQL Server
+# 2806 - Acesso à dados com C#, .NET 5, Dapper e SQL Server
 
 > Repositório do Curso 2806 - Acesso à dados com C#, .NET 5, Dapper e SQL Server disponível na plataforma [balta.io](https://balta.io)
 
