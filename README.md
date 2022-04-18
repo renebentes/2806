@@ -23,9 +23,10 @@ Há links específicos para cada commit de finalização de uma aula.
 
 ### Lista de Aulas
 
-| Aulas                            | Descrição                      |
-| -------------------------------- | ------------------------------ |
-| [aula-1-5](../../commit/a3ac0be) | Introdução - Connection String |
+| Aulas                            | Descrição                             |
+| -------------------------------- | ------------------------------------- |
+| [aula-1-5](../../commit/a3ac0be) | Introdução - Connection String        |
+| [aula-1-6](../../commit/6798067) | Introdução - Microsoft.Data.SqlClient |
 
 ## Autor
 
