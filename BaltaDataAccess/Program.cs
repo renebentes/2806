@@ -7,6 +7,7 @@ const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa
 using var connection = new SqlConnection(connectionString);
 
 CreateCategory(connection);
+UpdateCategory(connection);
 ListCategories(connection);
 
 static void ListCategories(SqlConnection connection)
@@ -52,5 +53,16 @@ static void CreateCategory(SqlConnection connection)
         categoria.Order,
         categoria.Description,
         categoria.Featured
+    });
+}
+
+static void UpdateCategory(SqlConnection connection)
+{
+    var updateSql = "UPDATE [Category] SET [Title] = @title WHERE [Id] = @id";
+
+    connection.Execute(updateSql, new
+    {
+        id = new Guid("af3407aa-11ae-4621-a2ef-2028b85507c4"),
+        title = "Frontend 2022"
     });
 }
