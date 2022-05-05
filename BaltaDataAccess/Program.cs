@@ -5,43 +5,52 @@ using Microsoft.Data.SqlClient;
 const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=1q2w3e4r@#$";
 
 using var connection = new SqlConnection(connectionString);
-var categoria = new Category()
+
+CreateCategory(connection);
+ListCategories(connection);
+
+static void ListCategories(SqlConnection connection)
 {
-    Id = Guid.NewGuid(),
-    Title = "Amazon AWS",
-    Url = "amazon",
-    Description = "Categoria destinada a serviços do AWS",
-    Order = 8,
-    Summary = "AWS Cloud",
-    Featured = false
-};
+    var categories = connection.Query<Category>("SELECT [Id], [Title] FROM Category");
 
-var insertSql = @"INSERT INTO
-    [Category]
-VALUES (
-    @Id,
-    @Title,
-    @Url,
-    @Summary,
-    @Order,
-    @Description,
-    @Featured)";
+    foreach (var category in categories)
+    {
+        Console.WriteLine($"{category.Id} - {category.Title}");
+    }
+}
 
-connection.Execute(insertSql, new
+static void CreateCategory(SqlConnection connection)
 {
-    categoria.Id,
-    categoria.Title,
-    categoria.Url,
-    categoria.Summary,
-    categoria.Order,
-    categoria.Description,
-    categoria.Featured
-});
+    var categoria = new Category()
+    {
+        Id = Guid.NewGuid(),
+        Title = "Amazon AWS",
+        Url = "amazon",
+        Description = "Categoria destinada a serviços do AWS",
+        Order = 8,
+        Summary = "AWS Cloud",
+        Featured = false
+    };
 
-var categories = connection.Query<Category>("SELECT [Id], [Title] FROM Category");
+    var insertSql = @"INSERT INTO
+        [Category]
+    VALUES (
+        @Id,
+        @Title,
+        @Url,
+        @Summary,
+        @Order,
+        @Description,
+        @Featured)";
 
-foreach (var category in categories)
-{
-    Console.WriteLine($"{category.Id} - {category.Title}");
-
+    connection.Execute(insertSql, new
+    {
+        categoria.Id,
+        categoria.Title,
+        categoria.Url,
+        categoria.Summary,
+        categoria.Order,
+        categoria.Description,
+        categoria.Featured
+    });
 }
