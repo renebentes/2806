@@ -32,6 +32,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-2-1](../../commit/8250327) | Dapper - Instalação                     |
 | [aula-2-2](../../commit/765714c) | Dapper - Primeira Consulta              |
 | [aula-2-4](../../commit/3e0e211) | Dapper - Iniciando um Insert            |
+| [aula-2-6](../../commit/7dee61f) | Dapper - SqlParameter                   |
 
 ## Autor
 
