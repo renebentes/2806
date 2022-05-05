@@ -5,17 +5,38 @@ using Microsoft.Data.SqlClient;
 const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=1q2w3e4r@#$";
 
 using var connection = new SqlConnection(connectionString);
+var categoria = new Category()
+{
+    Id = Guid.NewGuid(),
+    Title = "Amazon AWS",
+    Url = "amazon",
+    Description = "Categoria destinada a serviços do AWS",
+    Order = 8,
+    Summary = "AWS Cloud",
+    Featured = false
+};
 
 var insertSql = @"INSERT INTO
     [Category]
 VALUES (
-    Id,
-    Title,
-    Url,
-    Summary,
-    Order,
-    Description,
-    Featured)";
+    @Id,
+    @Title,
+    @Url,
+    @Summary,
+    @Order,
+    @Description,
+    @Featured)";
+
+connection.Execute(insertSql, new
+{
+    categoria.Id,
+    categoria.Title,
+    categoria.Url,
+    categoria.Summary,
+    categoria.Order,
+    categoria.Description,
+    categoria.Featured
+});
 
 var categories = connection.Query<Category>("SELECT [Id], [Title] FROM Category");
 
