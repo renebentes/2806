@@ -1,21 +1,14 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using BaltaDataAccess.Models;
+using Dapper;
+using Microsoft.Data.SqlClient;
 
 const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=1q2w3e4r@#$";
 
 using var connection = new SqlConnection(connectionString);
-connection.Open();
-using var command = new SqlCommand();
-command.Connection = connection;
-command.CommandType = CommandType.Text;
-command.CommandText = "SELECT [Id], [Title] FROM Category;";
+var categories = connection.Query<Category>("SELECT [Id], [Title] FROM Category");
 
-var reader = command.ExecuteReader();
-
-while (reader.Read())
+foreach (var category in categories)
 {
-    Console.WriteLine($"{reader.GetGuid(0)} - {reader.GetString(1)}");
+    Console.WriteLine($"{category.Id} - {category.Title}");
+
 }
-
-
-// See https://aka.ms/new-console-template for more information
