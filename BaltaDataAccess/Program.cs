@@ -5,6 +5,18 @@ using Microsoft.Data.SqlClient;
 const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=1q2w3e4r@#$";
 
 using var connection = new SqlConnection(connectionString);
+
+var insertSql = @"INSERT INTO
+    [Category]
+VALUES (
+    Id,
+    Title,
+    Url,
+    Summary,
+    Order,
+    Description,
+    Featured)";
+
 var categories = connection.Query<Category>("SELECT [Id], [Title] FROM Category");
 
 foreach (var category in categories)
