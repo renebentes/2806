@@ -7,6 +7,7 @@ const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa
 using var connection = new SqlConnection(connectionString);
 
 CreateCategory(connection);
+CreateManyCategories(connection);
 UpdateCategory(connection);
 ListCategories(connection);
 
@@ -53,6 +54,66 @@ static void CreateCategory(SqlConnection connection)
         categoria.Order,
         categoria.Description,
         categoria.Featured
+    });
+}
+
+static void CreateManyCategories(SqlConnection connection)
+{
+    var categoria = new Category()
+    {
+        Id = Guid.NewGuid(),
+        Title = "Amazon AWS",
+        Url = "amazon",
+        Description = "Categoria destinada a serviços do AWS",
+        Order = 8,
+        Summary = "AWS Cloud",
+        Featured = false
+    };
+
+    var categoria2 = new Category()
+    {
+        Id = Guid.NewGuid(),
+        Title = "Amazon AWS",
+        Url = "amazon",
+        Description = "Categoria destinada a serviços do AWS",
+        Order = 8,
+        Summary = "AWS Cloud",
+        Featured = false
+    };
+
+    var insertSql = @"INSERT INTO
+        [Category]
+    VALUES (
+        @Id,
+        @Title,
+        @Url,
+        @Summary,
+        @Order,
+        @Description,
+        @Featured)";
+
+    connection.Execute(insertSql, new[]
+    {
+        new
+        {
+            categoria.Id,
+            categoria.Title,
+            categoria.Url,
+            categoria.Summary,
+            categoria.Order,
+            categoria.Description,
+            categoria.Featured
+        },
+        new
+        {
+            categoria2.Id,
+            categoria2.Title,
+            categoria2.Url,
+            categoria2.Summary,
+            categoria2.Order,
+            categoria2.Description,
+            categoria2.Featured
+        }
     });
 }
 
