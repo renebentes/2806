@@ -1,6 +1,7 @@
 ﻿using BaltaDataAccess.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=1q2w3e4r@#$";
 
@@ -10,6 +11,7 @@ CreateCategory(connection);
 CreateManyCategories(connection);
 UpdateCategory(connection);
 ListCategories(connection);
+ExecuteProcedure(connection);
 
 static void ListCategories(SqlConnection connection)
 {
@@ -126,4 +128,12 @@ static void UpdateCategory(SqlConnection connection)
         id = new Guid("af3407aa-11ae-4621-a2ef-2028b85507c4"),
         title = "Frontend 2022"
     });
+}
+
+static void ExecuteProcedure(SqlConnection connection)
+{
+    var procedure = "spDeleteStudent";
+    var parameters = new { StudentId = "2d4108c0-af71-411f-b0fb-5c98248686c2" };
+
+    connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
 }
