@@ -73,12 +73,12 @@ static void CreateManyCategories(SqlConnection connection)
     var categoria2 = new Category()
     {
         Id = Guid.NewGuid(),
-        Title = "Amazon AWS",
-        Url = "amazon",
-        Description = "Categoria destinada a serviços do AWS",
-        Order = 8,
-        Summary = "AWS Cloud",
-        Featured = false
+        Title = "Nova Categoria",
+        Url = "nova-categoria",
+        Description = "Nova Categoria",
+        Order = 9,
+        Summary = "Categoria",
+        Featured = true
     };
 
     var insertSql = @"INSERT INTO
