@@ -12,6 +12,7 @@ CreateManyCategories(connection);
 UpdateCategory(connection);
 ListCategories(connection);
 ExecuteProcedure(connection);
+ExecuteReadProcedure(connection);
 
 static void ListCategories(SqlConnection connection)
 {
@@ -136,4 +137,16 @@ static void ExecuteProcedure(SqlConnection connection)
     var parameters = new { StudentId = "2d4108c0-af71-411f-b0fb-5c98248686c2" };
 
     connection.Execute(procedure, parameters, commandType: CommandType.StoredProcedure);
+}
+
+static void ExecuteReadProcedure(SqlConnection connection)
+{
+    var procedure = "spGetCoursesByCategory";
+    var parameters = new { CategoryId = "09ce0b7b-cfca-497b-92c0-3290ad9d5142" };
+    var courses = connection.Query(procedure, parameters, commandType: CommandType.StoredProcedure);
+
+    foreach (var course in courses)
+    {
+        Console.WriteLine(course.Title);
+    }
 }
