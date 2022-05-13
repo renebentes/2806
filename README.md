@@ -35,6 +35,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-2-6](../../commit/7dee61f) | Dapper - SqlParameter                   |
 | [aula-2-7](../../commit/0ffe935) | Dapper - Update                         |
 | [aula-3-1](../../commit/0c3a6e4) | Imersão - Execute Many                  |
+| [aula-3-2](../../commit/58247e3) | Imersão - Executando Procedures         |
 
 ## Autor
 
