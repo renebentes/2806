@@ -14,6 +14,7 @@ ListCategories(connection);
 ExecuteProcedure(connection);
 ExecuteReadProcedure(connection);
 ExecuteScalar(connection);
+ReadView(connection);
 
 static void ListCategories(SqlConnection connection)
 {
@@ -187,4 +188,15 @@ static void ExecuteScalar(SqlConnection connection)
         categoria.Featured
     });
     System.Console.WriteLine($"Categoria id: {id} inserida.");
+}
+
+static void ReadView(SqlConnection connection)
+{
+    var sql = "SELECT * FROM vwCourses";
+    var courses = connection.Query(sql);
+
+    foreach (var item in courses)
+    {
+        Console.WriteLine($"{item.Id} - {item.Title}");
+    }
 }
