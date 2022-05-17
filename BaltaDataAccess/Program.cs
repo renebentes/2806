@@ -13,6 +13,7 @@ UpdateCategory(connection);
 ListCategories(connection);
 ExecuteProcedure(connection);
 ExecuteReadProcedure(connection);
+ExecuteScalar(connection);
 
 static void ListCategories(SqlConnection connection)
 {
@@ -149,4 +150,41 @@ static void ExecuteReadProcedure(SqlConnection connection)
     {
         Console.WriteLine(course.Title);
     }
+}
+
+static void ExecuteScalar(SqlConnection connection)
+{
+    var categoria = new Category()
+    {
+        Title = "Amazon AWS",
+        Url = "amazon",
+        Description = "Categoria destinada a serviços do AWS",
+        Order = 8,
+        Summary = "AWS Cloud",
+        Featured = false
+    };
+
+    var insertSql = @"
+    INSERT INTO
+        [Category]
+    OUTPUT inserted.[Id]
+    VALUES (
+        NEWID(),
+        @Title,
+        @Url,
+        @Summary,
+        @Order,
+        @Description,
+        @Featured)";
+
+    var id = connection.ExecuteScalar<Guid>(insertSql, new
+    {
+        categoria.Title,
+        categoria.Url,
+        categoria.Summary,
+        categoria.Order,
+        categoria.Description,
+        categoria.Featured
+    });
+    System.Console.WriteLine($"Categoria id: {id} inserida.");
 }
