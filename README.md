@@ -41,6 +41,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-3-5](../../commit/422cab4) | Imersão - Views                         |
 | [aula-3-6](../../commit/15912dd) | Imersão - OneToOne (Parte 1)            |
 | [aula-3-7](../../commit/28f0eef) | Imersão - OneToOne (Parte 2)            |
+| [aula-3-8](../../commit/0dd8c7f) | Imersão - OneToMany (Parte 1)           |
 
 ## Autor
 
