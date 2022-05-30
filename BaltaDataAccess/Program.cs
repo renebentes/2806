@@ -234,8 +234,23 @@ static void OneToMany(SqlConnection connection)
         [CareerItem] ON [Career].[Id] = [CareerItem].[CareerId]
     ORDER BY
         [Career.Title]";
-    var careers = connection.Query<Career, CareerItem, Career>(sql, (career, item) =>
+
+    var careers = new List<Career>();
+    var items = connection.Query<Career, CareerItem, Career>(sql, (career, item) =>
     {
+        var car = careers.FirstOrDefault(x => x.Id == career.Id);
+
+        if (car is null)
+        {
+            car = career;
+            car.Items.Add(item);
+            careers.Add(car);
+        }
+        else
+        {
+            car.Items.Add(item);
+        }
+
         return career;
     }, splitOn: "CareerId");
 
