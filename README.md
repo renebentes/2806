@@ -45,6 +45,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-3-9](../../commit/861cae2)  | Imersão - OneToMany (Parte 2)           |
 | [aula-3-10](../../commit/11744a8) | Imersão - QueryMultiple                 |
 | [aula-3-11](../../commit/7001166) | Imersão - SelectIn                      |
+| [aula-3-12](../../commit/32c5cbe) | Imersão - Like                          |
 
 ## Autor
 
