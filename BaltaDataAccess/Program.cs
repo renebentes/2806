@@ -20,6 +20,7 @@ OneToMany(connection);
 QueryMultiple(connection);
 SelectIn(connection);
 Like(connection, "api");
+Transaction(connection);
 
 static void ListCategories(SqlConnection connection)
 {
@@ -314,4 +315,45 @@ static void Like(SqlConnection connection, string term)
     {
         Console.WriteLine(item.Title);
     }
+}
+
+static void Transaction(SqlConnection connection)
+{
+    var categoria = new Category()
+    {
+        Id = Guid.NewGuid(),
+        Title = "Categoria que não quero incluir",
+        Url = "amazon",
+        Description = "Categoria destinada a serviços do AWS",
+        Order = 9,
+        Summary = "AWS Cloud",
+        Featured = false
+    };
+
+    var insertSql = @"INSERT INTO
+        [Category]
+    VALUES (
+        @Id,
+        @Title,
+        @Url,
+        @Summary,
+        @Order,
+        @Description,
+        @Featured)";
+
+    connection.Open();
+    using var transaction = connection.BeginTransaction();
+
+    connection.Execute(insertSql, new
+    {
+        categoria.Id,
+        categoria.Title,
+        categoria.Url,
+        categoria.Summary,
+        categoria.Order,
+        categoria.Description,
+        categoria.Featured
+    }, transaction);
+
+    transaction.Rollback();
 }
