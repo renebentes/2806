@@ -49,6 +49,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-3-13](../../commit/cdc40c8) | Imersão - Transaction                   |
 | [aula-4-3](../../commit/0bc0d47)  | Mão na Massa - Criando as tabelas       |
 | [aula-4-4](../../commit/005ba7d)  | Mão na Massa - Criando o projeto        |
+| [aula-2-6](../../commit/8df8f3e)  | Mão na Massa - CRUD                     |
 
 ## Autor
 
