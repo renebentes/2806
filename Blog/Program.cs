@@ -1,4 +1,5 @@
 ﻿using Blog.Models;
+using Blog.Repositories;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -30,7 +31,8 @@ static void CreateUser(SqlConnection connection)
 
 static void ReadUsers(SqlConnection connection)
 {
-    var users = connection.GetAll<User>();
+    var repository = new UserRepository(connection);
+    var users = repository.GetAll();
 
     foreach (var user in users)
     {
