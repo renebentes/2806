@@ -7,11 +7,8 @@ const string connectionString = "Server=localhost,1433;Database=Blog;User ID=sa;
 
 using var connection = new SqlConnection(connectionString);
 
-// CreateUser(connection);
 ReadUsers(connection);
-UpdateUser(connection);
-ReadUser(connection);
-DeleteUser(connection);
+ReadRoles(connection);
 
 static void CreateUser(SqlConnection connection)
 {
@@ -72,4 +69,15 @@ static void DeleteUser(SqlConnection connection)
     var user = repository.GetById(1);
     repository.Delete(user);
     Console.WriteLine("Usuário apagado com sucesso!");
+}
+
+static void ReadRoles(SqlConnection connection)
+{
+    var repository = new RoleRepository(connection);
+    var roles = repository.GetAll();
+
+    foreach (var role in roles)
+    {
+        Console.WriteLine(role.Name);
+    }
 }
