@@ -8,7 +8,8 @@ public class UserRepository
 {
     private readonly SqlConnection _connection;
 
-    public UserRepository(SqlConnection connection) => _connection = connection;
+    public UserRepository(SqlConnection connection)
+        => _connection = connection;
 
     public IEnumerable<User> GetAll()
         => _connection.GetAll<User>();
@@ -18,4 +19,10 @@ public class UserRepository
 
     public void Create(User user)
         => _connection.Insert(user);
+
+    public void Update(User user)
+        => _connection.Update(user);
+
+    public void Delete(User user)
+        => _connection.Delete(user);
 }

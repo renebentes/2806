@@ -25,7 +25,8 @@ static void CreateUser(SqlConnection connection)
         Slug = "equipe-balta-io"
     };
 
-    connection.Insert<User>(user);
+    var repository = new UserRepository(connection);
+    repository.Create(user);
     Console.WriteLine("Usuário criado com sucesso!");
 }
 
@@ -42,7 +43,8 @@ static void ReadUsers(SqlConnection connection)
 
 static void ReadUser(SqlConnection connection)
 {
-    var user = connection.Get<User>(1);
+    var repository = new UserRepository(connection);
+    var user = repository.GetById(1);
     Console.WriteLine(user.Name);
 }
 
@@ -59,13 +61,15 @@ static void UpdateUser(SqlConnection connection)
         Slug = "equipe-balta-io"
     };
 
-    connection.Update<User>(user);
+    var repository = new UserRepository(connection);
+    repository.Update(user);
     Console.WriteLine("Usuário atualizado com sucesso!");
 }
 
 static void DeleteUser(SqlConnection connection)
 {
-    var user = connection.Get<User>(1);
-    connection.Delete<User>(user);
+    var repository = new UserRepository(connection);
+    var user = repository.GetById(1);
+    repository.Delete(user);
     Console.WriteLine("Usuário apagado com sucesso!");
 }
