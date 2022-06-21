@@ -18,11 +18,35 @@ public class RoleRepository
         => _connection.Get<Role>(id);
 
     public void Create(Role role)
-        => _connection.Insert(role);
+    {
+        role.Id = 0;
+        _connection.Insert(role);
+    }
 
     public void Update(Role role)
-        => _connection.Update(role);
+    {
+        if (role.Id != 0)
+        {
+            _connection.Update(role);
+        }
+    }
 
     public void Delete(Role role)
-        => _connection.Delete(role);
+    {
+        if (role.Id != 0)
+        {
+            _connection.Delete(role);
+        }
+    }
+
+    public void Delete(int id)
+    {
+        if (id == 0)
+        {
+            return;
+        }
+
+        var role = GetById(id);
+        Delete(role);
+    }
 }
