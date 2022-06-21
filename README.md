@@ -50,7 +50,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-4-3](../../commit/0bc0d47)  | Mão na Massa - Criando as tabelas                   |
 | [aula-4-4](../../commit/005ba7d)  | Mão na Massa - Criando o projeto                    |
 | [aula-4-6](../../commit/8df8f3e)  | Mão na Massa - CRUD                                 |
-| [aula-4-8](../../commit/dc8c85a)  | Mão na Massa - UserRepository                       |
+| [aula-4-8](../../commit/dc8c85a)  | Mão na Massa - User Repository                      |
 | [aula-4-9](../../commit/8e6f2c6)  | Mão na Massa - Otimizando o código (UserRepository) |
 | [aula-4-11](../../commit/0c3da08) | Mão na Massa - Role Repository                      |
 
