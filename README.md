@@ -58,6 +58,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-4-14](../../commit/25e250f) | Mão na Massa - Repositório Genérico                 |
 | [aula-4-15](../../commit/baad7fd) | Mão na Massa - Utilizando o repositório genérico    |
 | [aula-4-16](../../commit/097e427) | Mão na Massa - Implementando One To Many            |
+| [aula-4-19](../../commit/dc0ef3d) | Mão na Massa - Populando listas                     |
 
 ## Autor
 
