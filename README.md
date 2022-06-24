@@ -56,6 +56,7 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-4-12](../../commit/4936880) | Mão na Massa - Otimizando o código (RoleRepository) |
 | [aula-4-13](../../commit/acb504b) | Mão na Massa - Criando os Modelos                   |
 | [aula-4-14](../../commit/25e250f) | Mão na Massa - Repositório Genérico                 |
+| [aula-4-15](../../commit/baad7fd) | Mão na Massa - Utilizando o repositório genérico    |
 
 ## Autor
 
