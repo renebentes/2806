@@ -12,7 +12,7 @@ ReadRoles(connection);
 
 static void ReadUsers(SqlConnection connection)
 {
-    var repository = new Repository<User>(connection);
+    var repository = new UserRepository(connection);
     var users = repository.GetAll();
 
     foreach (var user in users)
