@@ -3,10 +3,8 @@ using Dapper.Contrib.Extensions;
 namespace Blog.Models;
 
 [Table($"[{nameof(User)}]")]
-public class User
+public class User : ModelBase
 {
-    public int Id { get; set; }
-
     public string Name { get; set; }
 
     public string Email { get; set; }
