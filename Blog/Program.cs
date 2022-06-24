@@ -7,6 +7,7 @@ const string connectionString = "Server=localhost,1433;Database=Blog;User ID=sa;
 using var connection = new SqlConnection(connectionString);
 
 ReadUsers(connection);
+CreateUser(connection);
 ReadRoles(connection);
 
 static void ReadUsers(SqlConnection connection)
@@ -17,6 +18,11 @@ static void ReadUsers(SqlConnection connection)
     foreach (var user in users)
     {
         Console.WriteLine(user.Name);
+
+        foreach (var role in user.Roles)
+        {
+            Console.WriteLine($" - {role.Name}");
+        }
     }
 }
 
@@ -29,4 +35,21 @@ static void ReadRoles(SqlConnection connection)
     {
         Console.WriteLine(role.Name);
     }
+}
+
+static void CreateUser(SqlConnection connection)
+{
+    var user = new User
+    {
+        Name = "Equipe Balta.io",
+        Bio = "Equipe Balata.io",
+        Email = "hello@bata.io",
+        PasswordHash = "HASH",
+        Image = "https://...",
+        Slug = "equipe-balta-io"
+    };
+
+    var repository = new UserRepository(connection);
+    repository.Create(user);
+    Console.WriteLine("Usuário criado com sucesso!");
 }

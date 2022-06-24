@@ -5,6 +5,8 @@ namespace Blog.Models;
 [Table($"[{nameof(User)}]")]
 public class User : ModelBase
 {
+    public User() => Roles = new();
+
     public string Name { get; set; }
 
     public string Email { get; set; }
@@ -16,4 +18,7 @@ public class User : ModelBase
     public string Image { get; set; }
 
     public string Slug { get; set; }
+
+    [Write(false)]
+    public List<Role> Roles { get; set; }
 }
