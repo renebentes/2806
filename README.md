@@ -60,6 +60,22 @@ Há links específicos para cada commit de finalização de uma aula.
 | [aula-4-16](../../commit/097e427) | Mão na Massa - Implementando One To Many            |
 | [aula-4-19](../../commit/dc0ef3d) | Mão na Massa - Populando listas                     |
 
+### Desafios
+
+- [ ] Cadastrar um usuário
+- [ ] Cadastrar um perfil
+- [ ] Vincular um usuário a um perfil
+- [ ] Cadastrar uma categoria
+- [ ] Cadastrar uma tag
+- [ ] Cadastrar um post
+- [ ] Vincular um post a uma tag
+- [ ] Listar os usuários (nome, e-mail e perfis separados por vírgulas)
+- [ ] Listar categorias com quantidade de posts
+- [ ] Listar tags com quantidade de posts
+- [ ] Listar os posts de uma categoria
+- [ ] Listar os posts com sua categoria
+- [ ] Listar os posts com suas tags (separadas por vírgulas)
+
 ## Autor
 
 [Rene Bentes Pinto](http://github.com/renebentes)
