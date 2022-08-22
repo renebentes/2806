@@ -12,7 +12,11 @@ if (!AnsiConsole.Profile.Capabilities.Interactive)
     return;
 }
 
-Write(new FigletText("Meu Blog").Centered().Color(Color.Purple_1));
+Write(new Panel(
+        new FigletText("Meu Blog")
+        .Centered()
+        .Color(Color.Purple_1))
+    .Expand());
 
 Thread.Sleep(2000);
 
