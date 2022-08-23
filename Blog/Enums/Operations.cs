@@ -4,5 +4,6 @@ public enum Operations
 {
     Exit = 0,
     GoBack,
-    TagManager
+    TagManager,
+    ListTags
 }
