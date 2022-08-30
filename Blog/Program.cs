@@ -3,9 +3,6 @@ using Microsoft.Data.SqlClient;
 
 const string connectionString = "Server=localhost,1433;Database=Blog;User ID=sa;Password=1q2w3e4r@#$;Trusted_Connection=False;TrustServerCertificate=True;";
 
-Database.Connection = new SqlConnection(connectionString);
-Database.Connection.Open();
-
 if (!AnsiConsole.Profile.Capabilities.Interactive)
 {
     MarkupLine("[red]Environment does not support interaction.[/]");
@@ -21,6 +18,9 @@ Write(new Panel(
 Thread.Sleep(2000);
 
 Clear();
+
+Database.Connection = new SqlConnection(connectionString);
+Database.Connection.Open();
 
 MainScreen.Load();
 
