@@ -1,3 +1,5 @@
+using Blog.Controls;
+
 namespace Blog.Screens;
 
 public static class MainScreen
@@ -30,7 +32,7 @@ public static class MainScreen
                 Quit();
                 break;
             default:
-                MarkupLine("[red]Opção inválida 😅.[/]");
+                Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
                 break;
         };
@@ -39,7 +41,7 @@ public static class MainScreen
     public static void Quit()
     {
         Clear();
-        MarkupLine("[blue]Até mais 👋.[/]");
+        Message.Show("[blue]Até mais 👋.[/]");
         Environment.Exit(0);
     }
 }

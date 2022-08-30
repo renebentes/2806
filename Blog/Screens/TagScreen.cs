@@ -1,4 +1,4 @@
-using Spectre.Console;
+using Blog.Controls;
 
 namespace Blog.Screens;
 
@@ -39,7 +39,7 @@ public static class TagScreen
                 MainScreen.Load();
                 break;
             default:
-                MarkupLine("[red]Opção inválida 😅.[/]");
+                Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
                 break;
         };
