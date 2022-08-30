@@ -17,12 +17,7 @@ public static class TagScreen
 
         Write(new Rule("Meu Blog - Gestão de Tags"));
 
-        var option = Prompt(
-            new SelectionPrompt<MenuItem>()
-                .Title("O que você deseja fazer?")
-                .AddChoices(menuItems)
-                .UseConverter((menu) => menu.Title)
-            );
+        var option = MainScreen.AddMenu(menuItems);
 
         switch (option.Operation)
         {
