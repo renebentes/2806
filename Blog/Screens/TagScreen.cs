@@ -8,6 +8,7 @@ public static class TagScreen
     {
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
                 new MenuItem { Operation = Operations.ListTags, Title="Listar Tags" },
+                new MenuItem { Operation = Operations.CreateTag, Title="Cadastrar Tag" },
                 new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
@@ -32,6 +33,10 @@ public static class TagScreen
                 } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
                 Load();
                 break;
+            case Operations.CreateTag:
+                CreateTag();
+                Load();
+                break;
             case Operations.Exit:
                 MainScreen.Quit();
                 break;
@@ -43,6 +48,25 @@ public static class TagScreen
                 Load();
                 break;
         };
+    }
+
+    private static void CreateTag()
+    {
+        var name = Ask<string>("Qual o título da Tag?");
+        var slug = Ask<string>("Qual o slug da Tag?");
+
+        Write(new Rule("[yellow]Cadastrar Tag[/]").RuleStyle("grey").LeftAligned());
+        Write(new Table().AddColumns("[grey]Título[/]", "[grey]Slug[/]")
+            .RoundedBorder()
+            .BorderColor(Color.Grey)
+            .AddRow(name, slug));
+
+        if (Confirm("Salvar dados da tag?"))
+        {
+            var tag = new Tag { Name = name, Slug = slug };
+            var repository = new Repository<Tag>(Database.Connection);
+            repository.Create(tag);
+        }
     }
 
     private static void ListTags()
