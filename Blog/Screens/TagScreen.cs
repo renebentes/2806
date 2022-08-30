@@ -52,20 +52,38 @@ public static class TagScreen
 
     private static void CreateTag()
     {
+        Write(new Rule("[yellow]Nova Tag[/]")
+            .RuleStyle("grey")
+            .LeftAligned()
+        );
+
         var name = Ask<string>("Qual o título da Tag?");
         var slug = Ask<string>("Qual o slug da Tag?");
 
-        Write(new Rule("[yellow]Cadastrar Tag[/]").RuleStyle("grey").LeftAligned());
-        Write(new Table().AddColumns("[grey]Título[/]", "[grey]Slug[/]")
+        Write(new Table()
+            .AddColumns("[grey]Título[/]", "[grey]Slug[/]")
             .RoundedBorder()
             .BorderColor(Color.Grey)
-            .AddRow(name, slug));
+            .AddRow(name, slug)
+        );
 
         if (Confirm("Salvar dados da tag?"))
         {
-            var tag = new Tag { Name = name, Slug = slug };
+            CreateTag(new Tag { Name = name, Slug = slug });
+        }
+    }
+
+    private static void CreateTag(Tag tag)
+    {
+        try
+        {
             var repository = new Repository<Tag>(Database.Connection);
             repository.Create(tag);
+            Message.Show("[green]Tag cadastrada com sucesso. ✅[/]");
+        }
+        catch (Exception ex)
+        {
+            Message.Show($"[red]Não foi possível cadastrar a tag. {ex.Message} 😅[/]");
         }
     }
 
