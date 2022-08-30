@@ -1,11 +1,12 @@
 ﻿using Blog;
+using Blog.Controls;
 using Microsoft.Data.SqlClient;
 
 const string connectionString = "Server=localhost,1433;Database=Blog;User ID=sa;Password=1q2w3e4r@#$;Trusted_Connection=False;TrustServerCertificate=True;";
 
 if (!AnsiConsole.Profile.Capabilities.Interactive)
 {
-    MarkupLine("[red]Environment does not support interaction.[/]");
+    Message.Show("[red]Environment does not support interaction.[/]");
     return;
 }
 
