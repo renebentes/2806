@@ -6,5 +6,6 @@ public enum Operations
     GoBack,
     TagManager,
     ListTags,
-    CreateTag
+    CreateTag,
+    UpdateTag
 }

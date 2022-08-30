@@ -9,6 +9,7 @@ public static class TagScreen
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
                 new MenuItem { Operation = Operations.ListTags, Title="Listar Tags" },
                 new MenuItem { Operation = Operations.CreateTag, Title="Cadastrar Tag" },
+                new MenuItem { Operation = Operations.UpdateTag, Title="Atualizar Tag" },
                 new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
@@ -30,6 +31,10 @@ public static class TagScreen
                 break;
             case Operations.CreateTag:
                 CreateTag();
+                Load();
+                break;
+            case Operations.UpdateTag:
+                UpdateTag();
                 Load();
                 break;
             case Operations.Exit:
@@ -66,6 +71,43 @@ public static class TagScreen
         {
             CreateTag(new Tag { Name = name, Slug = slug });
         }
+    }
+
+    private static void UpdateTag()
+    {
+        Write(new Rule("[yellow]Atualizando Tag[/]")
+            .RuleStyle("grey")
+            .LeftAligned()
+        );
+
+        var id = Ask<int>("Qual id da tag para atualizar?");
+
+        if (FindTag(id) is null)
+        {
+            Message.Show("[yellow]O id informado não existe.[/]");
+            return;
+        }
+
+        var name = Ask<string>("Título: ");
+        var slug = Ask<string>("Slug: ");
+
+        Write(new Table()
+            .AddColumns("[grey]Título[/]", "[grey]Slug[/]")
+            .RoundedBorder()
+            .BorderColor(Color.Grey)
+            .AddRow(name, slug)
+        );
+
+        if (Confirm("Salvar dados da tag?"))
+        {
+            UpdateTag(new Tag { Id = id, Name = name, Slug = slug });
+        }
+    }
+
+    private static Tag FindTag(int id)
+    {
+        var repository = new Repository<Tag>(Database.Connection);
+        return repository.GetById(id);
     }
 
     private static void CreateTag(Tag tag)
@@ -113,5 +155,19 @@ public static class TagScreen
         }
 
         Write(table);
+    }
+
+    private static void UpdateTag(Tag tag)
+    {
+        try
+        {
+            var repository = new Repository<Tag>(Database.Connection);
+            repository.Update(tag);
+            Message.Show("[green]Tag atualizada com sucesso. ✅[/]");
+        }
+        catch (Exception ex)
+        {
+            Message.Show($"[red]Não foi possível atualizar a tag. {ex.Message} 😅[/]");
+        }
     }
 }
