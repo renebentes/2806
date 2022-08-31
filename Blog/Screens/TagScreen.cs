@@ -18,6 +18,7 @@ public static class TagScreen
         Clear();
 
         Write(new Rule("Meu Blog - Gestão de Tags"));
+        WriteLine();
 
         var option = Menu.Create(menuItems);
 
