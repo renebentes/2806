@@ -8,5 +8,7 @@ public enum Operations
     ListTags,
     CreateTag,
     UpdateTag,
-    DeleteTag
+    DeleteTag,
+    UserManager,
+    CreateUser
 }

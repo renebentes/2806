@@ -62,7 +62,7 @@ Há links específicos para cada commit de finalização de uma aula.
 
 ### Desafios
 
-- [ ] Cadastrar um usuário
+- [x] Cadastrar um usuário
 - [ ] Cadastrar um perfil
 - [ ] Vincular um usuário a um perfil
 - [ ] Cadastrar uma categoria
