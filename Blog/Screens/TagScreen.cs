@@ -24,10 +24,7 @@ public static class TagScreen
         switch (option.Operation)
         {
             case Operations.ListTags:
-                do
-                {
-                    ListTags();
-                } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
+                ListTags();
                 Load();
                 break;
             case Operations.CreateTag:
@@ -174,35 +171,39 @@ public static class TagScreen
 
     private static void ListTags()
     {
-        var table = new Table()
-            .Title("Listagem de Tags")
-            .Caption("Pressione [[ [yellow]ENTER[/] ]] para voltar ao menu")
-            .Centered()
-            .Expand()
-            .BorderColor(Color.Grey);
-
-        var repository = new Repository<Tag>(Database.Connection);
-        var tags = repository.GetAll();
-
-        table.AddColumn("[yellow]Id[/]");
-        table.AddColumn("[yellow]Name[/]");
-        table.AddColumn("[yellow]Slug[/]");
-
-        if (!tags.Any())
+        do
         {
-            table.HideHeaders();
-            table.AddRow("Nenhum registro encontrado!");
-        }
-        else
-        {
+            var table = new Table()
+                .Title("Listagem de Tags")
+                .Caption("Pressione [[ [yellow]ENTER[/] ]] para voltar ao menu")
+                .Centered()
+                .Expand()
+                .BorderColor(Color.Grey);
 
-            foreach (var tag in tags)
+            var repository = new Repository<Tag>(Database.Connection);
+            var tags = repository.GetAll();
+
+            table.AddColumn("[yellow]Id[/]");
+            table.AddColumn("[yellow]Name[/]");
+            table.AddColumn("[yellow]Slug[/]");
+
+            if (!tags.Any())
             {
-                table.AddRow(tag.Id.ToString(), tag.Name.ToString(), tag.Slug.ToString());
+                table.HideHeaders();
+                table.AddRow("Nenhum registro encontrado!");
             }
-        }
+            else
+            {
 
-        Write(table);
+                foreach (var tag in tags)
+                {
+                    table.AddRow(tag.Id.ToString(), tag.Name.ToString(), tag.Slug.ToString());
+                }
+            }
+
+            Write(table);
+
+        } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
     }
 
     private static void UpdateTag(Tag tag)
