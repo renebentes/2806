@@ -10,6 +10,7 @@ public static class TagScreen
                 new MenuItem { Operation = Operations.ListTags, Title="Listar Tags" },
                 new MenuItem { Operation = Operations.CreateTag, Title="Cadastrar Tag" },
                 new MenuItem { Operation = Operations.UpdateTag, Title="Atualizar Tag" },
+                new MenuItem { Operation = Operations.DeleteTag, Title="Excluir Tag" },
                 new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
@@ -35,6 +36,10 @@ public static class TagScreen
                 break;
             case Operations.UpdateTag:
                 UpdateTag();
+                Load();
+                break;
+            case Operations.DeleteTag:
+                DeleteTag();
                 Load();
                 break;
             case Operations.Exit:
@@ -70,6 +75,49 @@ public static class TagScreen
         if (Confirm("Salvar dados da tag?"))
         {
             CreateTag(new Tag { Name = name, Slug = slug });
+        }
+    }
+
+    private static void DeleteTag()
+    {
+        Write(new Rule("[yellow]Excluindo Tag[/]")
+            .RuleStyle("grey")
+            .LeftAligned()
+        );
+
+        var id = Ask<int>("Qual id da tag para excluir?");
+        var tag = FindTag(id);
+
+        if (tag is null)
+        {
+            Message.Show("[yellow]O id informado não existe.[/]");
+            return;
+        }
+
+        Write(new Table()
+            .AddColumns("[grey]Título[/]", "[grey]Slug[/]")
+            .RoundedBorder()
+            .BorderColor(Color.Grey)
+            .AddRow(tag.Name, tag.Slug)
+        );
+
+        if (Confirm("Confirma exclusão da tag?"))
+        {
+            DeleteTag(id);
+        }
+    }
+
+    private static void DeleteTag(int id)
+    {
+        try
+        {
+            var repository = new Repository<Tag>(Database.Connection);
+            repository.Delete(id);
+            Message.Show("[green]Tag excluída com sucesso. ✅[/]");
+        }
+        catch (Exception ex)
+        {
+            Message.Show($"[red]Não foi possível excluir a tag. {ex.Message} 😅[/]");
         }
     }
 

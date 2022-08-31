@@ -7,5 +7,6 @@ public enum Operations
     TagManager,
     ListTags,
     CreateTag,
-    UpdateTag
+    UpdateTag,
+    DeleteTag
 }
