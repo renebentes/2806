@@ -18,7 +18,7 @@ public static class UserScreen
         Write(new Rule("Meu Blog - Gestão de Usuários"));
         WriteLine();
 
-        var option = MainScreen.AddMenu(menuItems);
+        var option = Menu.Create(menuItems);
 
         switch (option.Operation)
         {

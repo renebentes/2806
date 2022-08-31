@@ -19,7 +19,7 @@ public static class TagScreen
 
         Write(new Rule("Meu Blog - Gestão de Tags"));
 
-        var option = MainScreen.AddMenu(menuItems);
+        var option = Menu.Create(menuItems);
 
         switch (option.Operation)
         {

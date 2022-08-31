@@ -4,12 +4,6 @@ namespace Blog.Screens;
 
 public static class MainScreen
 {
-    public static MenuItem AddMenu(IReadOnlyList<MenuItem> menuItems)
-        => Prompt(new SelectionPrompt<MenuItem>()
-                .Title("O que você deseja fazer?")
-                .AddChoices(menuItems)
-                .UseConverter((menu) => menu.Title));
-
     public static void Load()
     {
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
@@ -21,8 +15,9 @@ public static class MainScreen
         Clear();
 
         Write(new Rule("Meu Blog"));
+        WriteLine();
 
-        var option = AddMenu(menuItems);
+        var option = Menu.Create(menuItems);
 
         switch (option.Operation)
         {
