@@ -24,12 +24,15 @@ public static class MainScreen
             case Operations.UserManager:
                 UserScreen.Load();
                 break;
+
             case Operations.TagManager:
                 TagScreen.Load();
                 break;
+
             case Operations.Exit:
                 Quit();
                 break;
+
             default:
                 Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
