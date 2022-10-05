@@ -11,5 +11,6 @@ public enum Operations
     DeleteTag,
     UserManager,
     CreateUser,
-    ListUsers
+    ListUsers,
+    RoleManager
 }

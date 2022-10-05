@@ -45,7 +45,7 @@ public static class UserScreen
                 Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
                 break;
-        };
+        }
     }
 
     private static void CreateUser()
