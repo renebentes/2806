@@ -9,9 +9,8 @@ public static class StringExtensions
     {
         using var algorithm = SHA256.Create();
         var hash = new StringBuilder();
-        byte[] crypto = algorithm.ComputeHash(Encoding.ASCII.GetBytes(value));
 
-        foreach (byte data in crypto)
+        foreach (byte data in algorithm.ComputeHash(Encoding.ASCII.GetBytes(value)))
         {
             hash.Append(data.ToString("x2"));
         }
