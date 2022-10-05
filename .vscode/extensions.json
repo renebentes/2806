@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "formulahendry.dotnet-test-explorer",
+    "ms-dotnettools.csharp",
+    "kreativ-software.csharpextensions",
+    "fernandoescolar.vscode-solution-explorer"
+  ]
+}
