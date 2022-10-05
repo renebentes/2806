@@ -4,14 +4,15 @@ public static class TagScreen
 {
     public static void Load()
     {
-        IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
-                new MenuItem { Operation = Operations.Create, Title="Cadastrar Tag" },
-                new MenuItem { Operation = Operations.Read, Title="Listar Tags" },
-                new MenuItem { Operation = Operations.Update, Title="Atualizar Tag" },
-                new MenuItem { Operation = Operations.Delete, Title="Excluir Tag" },
-                new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
-                new MenuItem { Operation = Operations.Exit, Title="Sair" }
-            };
+        IReadOnlyList<MenuItem> menuItems = new List<MenuItem>
+        {
+            new MenuItem { Operation = Operations.Create, Title="Cadastrar Tag" },
+            new MenuItem { Operation = Operations.Read, Title="Listar Tags" },
+            new MenuItem { Operation = Operations.Update, Title="Atualizar Tag" },
+            new MenuItem { Operation = Operations.Delete, Title="Excluir Tag" },
+            new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
+            new MenuItem { Operation = Operations.Exit, Title="Sair" }
+        };
 
         Screen.Create("Meu Blog - Gestão de Tags");
 

@@ -6,12 +6,13 @@ public static class UserScreen
 {
     public static void Load()
     {
-        IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
-                new MenuItem { Operation = Operations.Create, Title="Cadastrar Usuário" },
-                new MenuItem { Operation = Operations.Read, Title="Listar Usuários" },
-                new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
-                new MenuItem { Operation = Operations.Exit, Title="Sair" }
-            };
+        IReadOnlyList<MenuItem> menuItems = new List<MenuItem>
+        {
+            new MenuItem { Operation = Operations.Create, Title="Cadastrar Usuário" },
+            new MenuItem { Operation = Operations.Read, Title="Listar Usuários" },
+            new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
+            new MenuItem { Operation = Operations.Exit, Title="Sair" }
+        };
 
         Screen.Create("Meu Blog - Gestão de Usuários");
 
