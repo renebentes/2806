@@ -168,7 +168,7 @@ public static class TagScreen
             {
                 foreach (var tag in tags)
                 {
-                    table.AddRow(tag.Id.ToString(), tag.Name.ToString(), tag.Slug.ToString());
+                    table.AddRow(tag.Id.ToString(), tag.Name, tag.Slug);
                 }
             }
 
