@@ -4,5 +4,5 @@ public sealed class MenuItem
 {
     public Operations Operation { get; set; }
 
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 }
