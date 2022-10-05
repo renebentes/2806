@@ -7,6 +7,7 @@ public static class RoleScreen
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem>
         {
             new MenuItem { Operation = Operations.Create, Title = "Cadastrar Perfil" },
+            new MenuItem { Operation = Operations.Read, Title="Listar Perfis" },
             new MenuItem { Operation = Operations.GoBack, Title = "Voltar" },
             new MenuItem { Operation = Operations.Exit, Title = "Sair" }
         };
@@ -19,6 +20,11 @@ public static class RoleScreen
         {
             case Operations.Create:
                 CreateRole();
+                Load();
+                break;
+
+            case Operations.Read:
+                ListRoles();
                 Load();
                 break;
 
@@ -76,5 +82,41 @@ public static class RoleScreen
         {
             Message.Show($"[red]Não foi possível cadastrar o perfil de usuário. {ex.Message} 😅[/]");
         }
+    }
+
+    private static void ListRoles()
+    {
+        do
+        {
+            var table = new Table()
+                .Title("Listagem de Perfis")
+                .Caption("Pressione [[ [yellow]ENTER[/] ]] para voltar ao menu")
+                .Centered()
+                .Expand()
+                .BorderColor(Color.Grey);
+
+            var repository = new Repository<Role>(Database.Connection);
+            var roles = repository.GetAll();
+
+            table.AddColumn("[yellow]Id[/]");
+            table.AddColumn("[yellow]Nome[/]");
+            table.AddColumn("[yellow]Slug[/]");
+
+            if (!roles.Any())
+            {
+                table.HideHeaders();
+                table.AddRow("Nenhum registro encontrado!");
+            }
+            else
+            {
+                foreach (var user in roles)
+                {
+                    table.AddRow(user.Id.ToString(),
+                                 user.Slug);
+                }
+            }
+
+            Write(table);
+        } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
     }
 }
