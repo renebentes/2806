@@ -9,6 +9,7 @@ public static class UserScreen
     {
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
                 new MenuItem { Operation = Operations.CreateUser, Title="Cadastrar Usuário" },
+                new MenuItem { Operation = Operations.ListUsers, Title="Listar Usuários" },
                 new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
@@ -26,12 +27,20 @@ public static class UserScreen
                 CreateUser();
                 Load();
                 break;
+
+            case Operations.ListUsers:
+                ListUsers();
+                Load();
+                break;
+
             case Operations.Exit:
                 MainScreen.Quit();
                 break;
+
             case Operations.GoBack:
                 MainScreen.Load();
                 break;
+
             default:
                 Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
@@ -89,5 +98,46 @@ public static class UserScreen
         {
             Message.Show($"[red]Não foi possível cadastrar o usuário. {ex.Message} 😅[/]");
         }
+    }
+
+    private static void ListUsers()
+    {
+        do
+        {
+            var table = new Table()
+                .Title("Listagem de Usuários")
+                .Caption("Pressione [[ [yellow]ENTER[/] ]] para voltar ao menu")
+                .Centered()
+                .Expand()
+                .BorderColor(Color.Grey);
+
+            var repository = new UserRepository(Database.Connection);
+            var users = repository.GetAllWithRoles();
+
+            table.AddColumn("[yellow]Id[/]");
+            table.AddColumn("[yellow]Name[/]");
+            table.AddColumn("[yellow]E-mail[/]");
+            table.AddColumn("[yellow]Slug[/]");
+            table.AddColumn("[yellow]Perfis[/]");
+
+            if (!users.Any())
+            {
+                table.HideHeaders();
+                table.AddRow("Nenhum registro encontrado!");
+            }
+            else
+            {
+                foreach (var user in users)
+                {
+                    table.AddRow(user.Id.ToString(),
+                                 user.Name,
+                                 user.Email,
+                                 user.Slug,
+                                 string.Join(",", user.Roles.Select(role => role.Name)));
+                }
+            }
+
+            Write(table);
+        } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
     }
 }
