@@ -1,6 +1,6 @@
 namespace Blog.Controls;
 
-public class Screen
+public static class Screen
 {
     public static void Create(string title)
     {

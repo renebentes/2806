@@ -1,6 +1,6 @@
 namespace Blog.Controls;
 
-public class Message
+public static class Message
 {
     public static void Show(string message)
     {
