@@ -112,7 +112,7 @@ public static class UserScreen
             var users = repository.GetAllWithRoles();
 
             table.AddColumn("[yellow]Id[/]");
-            table.AddColumn("[yellow]Name[/]");
+            table.AddColumn("[yellow]Nome[/]");
             table.AddColumn("[yellow]E-mail[/]");
             table.AddColumn("[yellow]Slug[/]");
             table.AddColumn("[yellow]Perfis[/]");
