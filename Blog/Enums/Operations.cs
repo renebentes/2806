@@ -12,5 +12,6 @@ public enum Operations
     UserManager,
     CreateUser,
     ListUsers,
-    RoleManager
+    RoleManager,
+    CreateRole
 }
