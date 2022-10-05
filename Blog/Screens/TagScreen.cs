@@ -1,5 +1,3 @@
-using Blog.Controls;
-
 namespace Blog.Screens;
 
 public static class TagScreen
@@ -15,10 +13,7 @@ public static class TagScreen
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
 
-        Clear();
-
-        Write(new Rule("Meu Blog - Gestão de Tags"));
-        WriteLine();
+        Screen.Create("Meu Blog - Gestão de Tags");
 
         var option = Menu.Create(menuItems);
 
@@ -41,7 +36,7 @@ public static class TagScreen
                 Load();
                 break;
             case Operations.Exit:
-                MainScreen.Quit();
+                Screen.Quit();
                 break;
             case Operations.GoBack:
                 MainScreen.Load();

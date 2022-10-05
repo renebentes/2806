@@ -14,10 +14,7 @@ public static class MainScreen
             new MenuItem { Operation = Operations.Exit, Title="Sair" }
         };
 
-        Clear();
-
-        Write(new Rule("Meu Blog"));
-        WriteLine();
+        Screen.Create("Meu Blog");
 
         var option = Menu.Create(menuItems);
 
@@ -36,7 +33,7 @@ public static class MainScreen
                 break;
 
             case Operations.Exit:
-                Quit();
+                Screen.Quit();
                 break;
 
             default:
@@ -44,12 +41,5 @@ public static class MainScreen
                 Load();
                 break;
         };
-    }
-
-    public static void Quit()
-    {
-        Clear();
-        Message.Show("[blue]Até mais 👋.[/]");
-        Environment.Exit(0);
     }
 }

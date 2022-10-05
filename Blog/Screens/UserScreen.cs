@@ -1,4 +1,3 @@
-using Blog.Controls;
 using Blog.Extensions;
 
 namespace Blog.Screens;
@@ -14,10 +13,7 @@ public static class UserScreen
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
 
-        Clear();
-
-        Write(new Rule("Meu Blog - Gestão de Usuários"));
-        WriteLine();
+        Screen.Create("Meu Blog - Gestão de Usuários");
 
         var option = Menu.Create(menuItems);
 
@@ -34,7 +30,7 @@ public static class UserScreen
                 break;
 
             case Operations.Exit:
-                MainScreen.Quit();
+                Screen.Quit();
                 break;
 
             case Operations.GoBack:

@@ -1,3 +1,4 @@
+global using Blog.Controls;
 global using Blog.Enums;
 global using Blog.Models;
 global using Blog.Repositories;
