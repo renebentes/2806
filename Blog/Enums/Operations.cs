@@ -4,14 +4,11 @@ public enum Operations
 {
     Exit = 0,
     GoBack,
+    Create,
+    Read,
+    Update,
+    Delete,
     TagManager,
-    ListTags,
-    CreateTag,
-    UpdateTag,
-    DeleteTag,
     UserManager,
-    CreateUser,
-    ListUsers,
-    RoleManager,
-    CreateRole
+    RoleManager
 }

@@ -5,10 +5,10 @@ public static class TagScreen
     public static void Load()
     {
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
-                new MenuItem { Operation = Operations.ListTags, Title="Listar Tags" },
-                new MenuItem { Operation = Operations.CreateTag, Title="Cadastrar Tag" },
-                new MenuItem { Operation = Operations.UpdateTag, Title="Atualizar Tag" },
-                new MenuItem { Operation = Operations.DeleteTag, Title="Excluir Tag" },
+                new MenuItem { Operation = Operations.Read, Title="Listar Tags" },
+                new MenuItem { Operation = Operations.Create, Title="Cadastrar Tag" },
+                new MenuItem { Operation = Operations.Update, Title="Atualizar Tag" },
+                new MenuItem { Operation = Operations.Delete, Title="Excluir Tag" },
                 new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
@@ -19,19 +19,19 @@ public static class TagScreen
 
         switch (option.Operation)
         {
-            case Operations.ListTags:
+            case Operations.Read:
                 ListTags();
                 Load();
                 break;
-            case Operations.CreateTag:
+            case Operations.Create:
                 CreateTag();
                 Load();
                 break;
-            case Operations.UpdateTag:
+            case Operations.Update:
                 UpdateTag();
                 Load();
                 break;
-            case Operations.DeleteTag:
+            case Operations.Delete:
                 DeleteTag();
                 Load();
                 break;

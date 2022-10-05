@@ -6,7 +6,7 @@ public static class RoleScreen
     {
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem>
         {
-            new MenuItem { Operation = Operations.CreateRole, Title = "Cadastrar Perfil" },
+            new MenuItem { Operation = Operations.Create, Title = "Cadastrar Perfil" },
             new MenuItem { Operation = Operations.GoBack, Title = "Voltar" },
             new MenuItem { Operation = Operations.Exit, Title = "Sair" }
         };
@@ -17,7 +17,7 @@ public static class RoleScreen
 
         switch (option.Operation)
         {
-            case Operations.CreateRole:
+            case Operations.Create:
                 CreateRole();
                 Load();
                 break;

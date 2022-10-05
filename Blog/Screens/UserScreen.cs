@@ -7,8 +7,8 @@ public static class UserScreen
     public static void Load()
     {
         IReadOnlyList<MenuItem> menuItems = new List<MenuItem> {
-                new MenuItem { Operation = Operations.CreateUser, Title="Cadastrar Usuário" },
-                new MenuItem { Operation = Operations.ListUsers, Title="Listar Usuários" },
+                new MenuItem { Operation = Operations.Create, Title="Cadastrar Usuário" },
+                new MenuItem { Operation = Operations.Read, Title="Listar Usuários" },
                 new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
                 new MenuItem { Operation = Operations.Exit, Title="Sair" }
             };
@@ -19,12 +19,12 @@ public static class UserScreen
 
         switch (option.Operation)
         {
-            case Operations.CreateUser:
+            case Operations.Create:
                 CreateUser();
                 Load();
                 break;
 
-            case Operations.ListUsers:
+            case Operations.Read:
                 ListUsers();
                 Load();
                 break;
