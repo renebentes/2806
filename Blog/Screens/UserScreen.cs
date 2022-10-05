@@ -126,11 +126,13 @@ public static class UserScreen
             {
                 foreach (var user in users)
                 {
-                    table.AddRow(user.Id.ToString(),
-                                 user.Name,
-                                 user.Email,
-                                 user.Slug,
-                                 string.Join(",", user.Roles.Select(role => role.Name)));
+                    table.AddRow(
+                        user.Id.ToString(),
+                        user.Name,
+                        user.Email,
+                        user.Slug,
+                        string.Join(",", user.Roles.Select(role => role.Name)
+                    ));
                 }
             }
 

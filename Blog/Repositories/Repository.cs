@@ -1,4 +1,3 @@
-using Blog.Models;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -11,24 +10,10 @@ public class Repository<TModel> where TModel : ModelBase
     public Repository(SqlConnection connection)
         => _connection = connection;
 
-    public IEnumerable<TModel> GetAll()
-        => _connection.GetAll<TModel>();
-
-    public TModel GetById(int id)
-        => _connection.Get<TModel>(id);
-
     public void Create(TModel model)
     {
         model.Id = 0;
         _connection.Insert(model);
-    }
-
-    public void Update(TModel model)
-    {
-        if (model.Id != 0)
-        {
-            _connection.Update(model);
-        }
     }
 
     public void Delete(TModel model)
@@ -48,5 +33,19 @@ public class Repository<TModel> where TModel : ModelBase
 
         var model = GetById(id);
         Delete(model);
+    }
+
+    public IEnumerable<TModel> GetAll()
+        => _connection.GetAll<TModel>();
+
+    public TModel GetById(int id)
+        => _connection.Get<TModel>(id);
+
+    public void Update(TModel model)
+    {
+        if (model.Id != 0)
+        {
+            _connection.Update(model);
+        }
     }
 }

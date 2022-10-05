@@ -24,24 +24,30 @@ public static class TagScreen
                 CreateTag();
                 Load();
                 break;
+
             case Operations.Read:
                 ListTags();
                 Load();
                 break;
+
             case Operations.Update:
                 UpdateTag();
                 Load();
                 break;
+
             case Operations.Delete:
                 DeleteTag();
                 Load();
                 break;
+
             case Operations.Exit:
                 Screen.Quit();
                 break;
+
             case Operations.GoBack:
                 MainScreen.Load();
                 break;
+
             default:
                 Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
@@ -69,6 +75,20 @@ public static class TagScreen
         if (Confirm("Salvar dados da tag?"))
         {
             CreateTag(new Tag { Name = name, Slug = slug });
+        }
+    }
+
+    private static void CreateTag(Tag tag)
+    {
+        try
+        {
+            var repository = new Repository<Tag>(Database.Connection);
+            repository.Create(tag);
+            Message.Show("[green]Tag cadastrada com sucesso. ✅[/]");
+        }
+        catch (Exception ex)
+        {
+            Message.Show($"[red]Não foi possível cadastrar a tag. {ex.Message} 😅[/]");
         }
     }
 
@@ -115,6 +135,47 @@ public static class TagScreen
         }
     }
 
+    private static Tag FindTag(int id)
+    {
+        var repository = new Repository<Tag>(Database.Connection);
+        return repository.GetById(id);
+    }
+
+    private static void ListTags()
+    {
+        do
+        {
+            var table = new Table()
+                .Title("Listagem de Tags")
+                .Caption("Pressione [[ [yellow]ENTER[/] ]] para voltar ao menu")
+                .Centered()
+                .Expand()
+                .BorderColor(Color.Grey);
+
+            var repository = new Repository<Tag>(Database.Connection);
+            var tags = repository.GetAll();
+
+            table.AddColumn("[yellow]Id[/]");
+            table.AddColumn("[yellow]Name[/]");
+            table.AddColumn("[yellow]Slug[/]");
+
+            if (!tags.Any())
+            {
+                table.HideHeaders();
+                table.AddRow("Nenhum registro encontrado!");
+            }
+            else
+            {
+                foreach (var tag in tags)
+                {
+                    table.AddRow(tag.Id.ToString(), tag.Name.ToString(), tag.Slug.ToString());
+                }
+            }
+
+            Write(table);
+        } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
+    }
+
     private static void UpdateTag()
     {
         Write(new Rule("[yellow]Atualizando Tag[/]")
@@ -144,63 +205,6 @@ public static class TagScreen
         {
             UpdateTag(new Tag { Id = id, Name = name, Slug = slug });
         }
-    }
-
-    private static Tag FindTag(int id)
-    {
-        var repository = new Repository<Tag>(Database.Connection);
-        return repository.GetById(id);
-    }
-
-    private static void CreateTag(Tag tag)
-    {
-        try
-        {
-            var repository = new Repository<Tag>(Database.Connection);
-            repository.Create(tag);
-            Message.Show("[green]Tag cadastrada com sucesso. ✅[/]");
-        }
-        catch (Exception ex)
-        {
-            Message.Show($"[red]Não foi possível cadastrar a tag. {ex.Message} 😅[/]");
-        }
-    }
-
-    private static void ListTags()
-    {
-        do
-        {
-            var table = new Table()
-                .Title("Listagem de Tags")
-                .Caption("Pressione [[ [yellow]ENTER[/] ]] para voltar ao menu")
-                .Centered()
-                .Expand()
-                .BorderColor(Color.Grey);
-
-            var repository = new Repository<Tag>(Database.Connection);
-            var tags = repository.GetAll();
-
-            table.AddColumn("[yellow]Id[/]");
-            table.AddColumn("[yellow]Name[/]");
-            table.AddColumn("[yellow]Slug[/]");
-
-            if (!tags.Any())
-            {
-                table.HideHeaders();
-                table.AddRow("Nenhum registro encontrado!");
-            }
-            else
-            {
-
-                foreach (var tag in tags)
-                {
-                    table.AddRow(tag.Id.ToString(), tag.Name.ToString(), tag.Slug.ToString());
-                }
-            }
-
-            Write(table);
-
-        } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
     }
 
     private static void UpdateTag(Tag tag)

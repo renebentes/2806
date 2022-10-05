@@ -109,10 +109,9 @@ public static class RoleScreen
             }
             else
             {
-                foreach (var user in roles)
+                foreach (var role in roles)
                 {
-                    table.AddRow(user.Id.ToString(),
-                                 user.Slug);
+                    table.AddRow(role.Id.ToString(), role.Name, role.Slug);
                 }
             }
 
