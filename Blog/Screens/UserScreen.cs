@@ -79,8 +79,8 @@ public static class UserScreen
                 Name = name,
                 Email = email,
                 PasswordHash = password.ToSha256(),
-                Bio = bio.ToString(),
-                Image = image.ToString(),
+                Bio = bio,
+                Image = image,
                 Slug = slug
             });
         }
