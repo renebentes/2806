@@ -15,7 +15,7 @@ public class UserRepository : Repository<User>
 
     public IEnumerable<User> GetAllWithRoles()
     {
-        var query = @"
+        const string query = @"
             SELECT
                 [User].*,
                 [Role].*
@@ -29,7 +29,8 @@ public class UserRepository : Repository<User>
             query,
             (user, role) =>
             {
-                var usr = users.FirstOrDefault(x => x.Id == user.Id);
+                var usr = users.Find(x => x.Id == user.Id);
+
                 if (usr is null)
                 {
                     usr = user;
