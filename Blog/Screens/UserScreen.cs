@@ -62,16 +62,37 @@ public static class UserScreen
                     .AllowEmpty());
         var slug = Ask<string>("Slug:");
 
+        var repository = new Repository<Role>(Database.Connection);
+        var roles = repository.GetAll();
+        var selectedRoles = Prompt(
+            new MultiSelectionPrompt<Role>()
+                .Title("Perfil de Usuário:")
+                .NotRequired()
+                .PageSize(10)
+                .MoreChoicesText("[grey](Mova para cima e para baixo para navevar entre as páginas)[/]")
+                .InstructionsText(
+                    @"[grey](Pressione [blue]<espaço>[/] para selecionar um perfil, " +
+                    "[green]<enter>[/] para confirmar)[/]")
+                .AddChoices(roles)
+                .UseConverter(role => role.Name)
+                );
+
         Write(new Table()
-            .AddColumns("[grey]Nome[/]", "[grey]E-mail[/]", "[grey]Biografia[/]", "[grey]Foto[/]", "[grey]Slug[/]")
+            .AddColumns("[grey]Nome[/]", "[grey]E-mail[/]", "[grey]Biografia[/]", "[grey]Foto[/]", "[grey]Slug[/]", "[grey]Perfis[/]")
             .RoundedBorder()
             .BorderColor(Color.Grey)
-            .AddRow(name, email, bio, image, slug)
+            .AddRow(name,
+                    email,
+                    bio,
+                    image,
+                    slug,
+                    string.Join(",", selectedRoles.Select(role => role.Name)))
         );
 
         if (Confirm("Salvar dados do usuário?"))
         {
-            CreateUser(new User
+
+            var user = new User
             {
                 Name = name,
                 Email = email,
@@ -79,7 +100,10 @@ public static class UserScreen
                 Bio = bio,
                 Image = image,
                 Slug = slug
-            });
+            };
+
+            user.Roles.AddRange(selectedRoles);
+            CreateUser(user);
         }
     }
 
