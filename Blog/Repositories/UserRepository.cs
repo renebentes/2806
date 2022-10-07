@@ -1,4 +1,5 @@
 using Dapper;
+using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
 namespace Blog.Repositories;
@@ -49,5 +50,38 @@ public class UserRepository : Repository<User>
             }, splitOn: "Id");
 
         return users;
+    }
+
+    public override void Create(User user)
+    {
+        using var transaction = _connection.BeginTransaction();
+        try
+        {
+            user.Id = 0;
+            _connection.Insert(user, transaction);
+
+            var insertUserRole = @"
+                INSERT INTO
+                    [UserRole]
+                VALUES (
+                    @UserId,
+                    @RoleId
+                )";
+
+            foreach (var role in user.Roles)
+            {
+                _connection.Execute(insertUserRole, new
+                {
+                    userId = user.Id,
+                    roleId = role.Id
+                }, transaction);
+            }
+            transaction.Commit();
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+            throw;
+        }
     }
 }
