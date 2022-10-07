@@ -10,7 +10,7 @@ public class Repository<TModel> where TModel : ModelBase
     public Repository(SqlConnection connection)
         => _connection = connection;
 
-    public void Create(TModel model)
+    public virtual void Create(TModel model)
     {
         model.Id = 0;
         _connection.Insert(model);
