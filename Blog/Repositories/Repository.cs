@@ -41,7 +41,7 @@ public class Repository<TModel> where TModel : ModelBase
     public TModel GetById(int id)
         => _connection.Get<TModel>(id);
 
-    public void Update(TModel model)
+    public virtual void Update(TModel model)
     {
         if (model.Id != 0)
         {

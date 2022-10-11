@@ -205,7 +205,7 @@ public static class UserScreen
                     bio,
                     image,
                     slug,
-                    string.Join(",", selectedRoles.Select(role => role.Name)))
+                    string.Join(",", roles.Select(role => role.Name)))
         );
 
     private static void UpdateUser()

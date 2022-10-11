@@ -70,6 +70,31 @@ public class UserRepository : Repository<User>
         return users;
     }
 
+    public User GetByIdWithRoles(int id)
+    {
+        const string query = @"
+            SELECT
+                [User].*,
+                [Role].*
+            FROM
+                [User]
+                LEFT JOIN [UserRole] ON [UserRole].[UserId] = [User].[Id]
+                LEFT JOIN [Role] ON [UserRole].[RoleId] = [Role].[Id]
+            WHERE
+                [User].[Id] = @id";
+
+        var user = _connection.Query<User, Role, User>(
+            query,
+            (user, role) =>
+            {
+                user.Roles.Add(role);
+
+                return user;
+            }, new { id }, splitOn: "Id").SingleOrDefault();
+
+        return user;
+    }
+
     public override void Create(User user)
     {
         using var transaction = _connection.BeginTransaction();

@@ -70,7 +70,7 @@ Há links específicos para cada commit de finalização de uma aula.
 - [x] Cadastrar uma tag
 - [ ] Cadastrar um post
 - [ ] Vincular um post a uma tag
-- [ ] Listar os usuários (nome, e-mail e perfis separados por vírgulas)
+- [x] Listar os usuários (nome, e-mail e perfis separados por vírgulas)
 - [ ] Listar categorias com quantidade de posts
 - [ ] Listar tags com quantidade de posts
 - [ ] Listar os posts de uma categoria
