@@ -129,4 +129,30 @@ public class UserRepository : Repository<User>
             throw;
         }
     }
+
+    public override void Update(User user)
+    {
+        using var transaction = _connection.BeginTransaction();
+        try
+        {
+            if (user.Id != 0)
+            {
+                _connection.Update(user, transaction);
+
+                foreach (var role in user.Roles)
+                {
+                    if (!HasRole(user.Id, role.Id, transaction))
+                    {
+                        AddRole(user.Id, role.Id, transaction);
+                    }
+                }
+            }
+            transaction.Commit();
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+            throw;
+        }
+    }
 }
