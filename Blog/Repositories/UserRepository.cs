@@ -70,7 +70,7 @@ public class UserRepository : Repository<User>
         return users;
     }
 
-    public User GetByIdWithRoles(int id)
+    public User? GetByIdWithRoles(int id)
     {
         const string query = @"
             SELECT
@@ -83,16 +83,31 @@ public class UserRepository : Repository<User>
             WHERE
                 [User].[Id] = @id";
 
-        var user = _connection.Query<User, Role, User>(
+        var users = new List<User>();
+        var items = _connection.Query<User, Role, User>(
             query,
             (user, role) =>
             {
-                user.Roles.Add(role);
+                var usr = users.Find(x => x.Id == user.Id);
+
+                if (usr is null)
+                {
+                    usr = user;
+
+                    if (role is not null)
+                        usr.Roles.Add(role);
+
+                    users.Add(usr);
+                }
+                else
+                {
+                    usr.Roles.Add(role);
+                }
 
                 return user;
-            }, new { id }, splitOn: "Id").SingleOrDefault();
+            }, new { id }, splitOn: "Id");
 
-        return user;
+        return users.SingleOrDefault();
     }
 
     public bool HasRole(int userId, int roleId, IDbTransaction? transaction = null)
