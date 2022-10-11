@@ -52,42 +52,15 @@ public static class UserScreen
             .LeftAligned()
         );
 
-        var name = Ask<string>("Nome:");
-        var email = Ask<string>("E-mail:");
-        var password = Prompt(new TextPrompt<string>("Senha:")
-                    .Secret());
-        var bio = Prompt(new TextPrompt<string>("Biografia:")
-                    .AllowEmpty());
-        var image = Prompt(new TextPrompt<string>("Foto:")
-                    .AllowEmpty());
-        var slug = Ask<string>("Slug:");
+        var name = AskName();
+        var email = AskEmail();
+        var password = AskPassword();
+        var bio = AskBio();
+        var image = AskImage();
+        var slug = AskSlug();
+        var selectedRoles = SelectRoles();
 
-        var repository = new Repository<Role>(Database.Connection);
-        var roles = repository.GetAll();
-        var selectedRoles = Prompt(
-            new MultiSelectionPrompt<Role>()
-                .Title("Perfil de Usuário:")
-                .NotRequired()
-                .PageSize(10)
-                .MoreChoicesText("[grey](Mova para cima e para baixo para navevar entre as páginas)[/]")
-                .InstructionsText(
-                    @"[grey](Pressione [blue]<espaço>[/] para selecionar um perfil, " +
-                    "[green]<enter>[/] para confirmar)[/]")
-                .AddChoices(roles)
-                .UseConverter(role => role.Name)
-                );
-
-        Write(new Table()
-            .AddColumns("[grey]Nome[/]", "[grey]E-mail[/]", "[grey]Biografia[/]", "[grey]Foto[/]", "[grey]Slug[/]", "[grey]Perfis[/]")
-            .RoundedBorder()
-            .BorderColor(Color.Grey)
-            .AddRow(name,
-                    email,
-                    bio,
-                    image,
-                    slug,
-                    string.Join(",", selectedRoles.Select(role => role.Name)))
-        );
+        ShowPreview(name, email, bio, image, slug, selectedRoles);
 
         if (Confirm("Salvar dados do usuário?"))
         {
@@ -106,6 +79,27 @@ public static class UserScreen
             CreateUser(user);
         }
     }
+
+    private static string AskBio()
+        => Prompt(new TextPrompt<string>("Biografia:")
+            .AllowEmpty());
+
+    private static string AskEmail()
+        => Ask<string>("E-mail:");
+
+    private static string AskImage()
+        => Prompt(new TextPrompt<string>("Foto:")
+            .AllowEmpty());
+
+    private static string AskName()
+        => Ask<string>("Nome:");
+
+    private static string AskPassword()
+        => Prompt(new TextPrompt<string>("Senha:")
+            .Secret());
+
+    private static string AskSlug()
+        => Ask<string>("Slug:");
 
     private static void CreateUser(User user)
     {
@@ -163,4 +157,45 @@ public static class UserScreen
             Write(table);
         } while (System.Console.ReadKey().Key != ConsoleKey.Enter);
     }
+
+    private static IEnumerable<Role> SelectRoles()
+    {
+        var repository = new Repository<Role>(Database.Connection);
+        var roles = repository.GetAll();
+
+        return Prompt(new MultiSelectionPrompt<Role>()
+                    .Title("Perfil de Usuário:")
+                    .NotRequired()
+                    .PageSize(10)
+                    .MoreChoicesText("[grey](Mova para cima e para baixo para navevar entre as páginas)[/]")
+                    .InstructionsText(
+                        @"[grey](Pressione [blue]<espaço>[/] para selecionar um perfil, " +
+                        "[green]<enter>[/] para confirmar)[/]")
+                    .AddChoices(roles)
+                    .UseConverter(role => role.Name)
+                );
+    }
+
+    private static void ShowPreview(string name,
+                                    string email,
+                                    string bio,
+                                    string image,
+                                    string slug,
+                                    IEnumerable<Role> roles)
+        => Write(new Table()
+            .AddColumns("[grey]Nome[/]",
+                        "[grey]E-mail[/]",
+                        "[grey]Biografia[/]",
+                        "[grey]Foto[/]",
+                        "[grey]Slug[/]",
+                        "[grey]Perfis[/]")
+            .RoundedBorder()
+            .BorderColor(Color.Grey)
+            .AddRow(name,
+                    email,
+                    bio,
+                    image,
+                    slug,
+                    string.Join(",", selectedRoles.Select(role => role.Name)))
+        );
 }
