@@ -10,6 +10,7 @@ public static class UserScreen
         {
             new MenuItem { Operation = Operations.Create, Title="Cadastrar Usuário" },
             new MenuItem { Operation = Operations.Read, Title="Listar Usuários" },
+            new MenuItem { Operation = Operations.Update, Title="Atualizar Usuário" },
             new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
             new MenuItem { Operation = Operations.Exit, Title="Sair" }
         };
@@ -27,6 +28,11 @@ public static class UserScreen
 
             case Operations.Read:
                 ListUsers();
+                Load();
+                break;
+
+            case Operations.Update:
+                UpdateUser();
                 Load();
                 break;
 
@@ -86,6 +92,9 @@ public static class UserScreen
 
     private static string AskEmail()
         => Ask<string>("E-mail:");
+
+    private static int AskId()
+        => Ask<int>("Id:");
 
     private static string AskImage()
         => Prompt(new TextPrompt<string>("Foto:")
@@ -198,4 +207,62 @@ public static class UserScreen
                     slug,
                     string.Join(",", selectedRoles.Select(role => role.Name)))
         );
+
+    private static void UpdateUser()
+    {
+        Write(new Rule("[yellow]Atualizando Usuário[/]")
+            .RuleStyle("grey")
+            .LeftAligned()
+        );
+
+        var id = AskId();
+        var repository = new UserRepository(Database.Connection);
+        var user = repository.GetByIdWithRoles(id);
+
+        if (user is null)
+        {
+            Message.Show("[yellow]Usuário não encontrado.[/]");
+            return;
+        }
+
+        ShowPreview(user.Name, user.Email, user.Bio, user.Image, user.Slug, user.Roles);
+
+        var name = AskName();
+        var email = AskEmail();
+        var password = AskPassword();
+        var bio = AskBio();
+        var image = AskImage();
+        var slug = AskSlug();
+        var selectedRoles = SelectRoles();
+
+        ShowPreview(name, email, bio, image, slug, selectedRoles);
+
+        if (Confirm("Salvar dados do usuário?"))
+        {
+
+            user.Name = name;
+            user.Email = email;
+            user.PasswordHash = password.ToSha256();
+            user.Bio = bio;
+            user.Image = image;
+            user.Slug = slug;
+
+            user.Roles.AddRange(selectedRoles);
+            UpdateUser(user);
+        }
+    }
+
+    private static void UpdateUser(User user)
+    {
+        try
+        {
+            var repository = new UserRepository(Database.Connection);
+            repository.Update(user);
+            Message.Show("[green]Usuário atualizado com sucesso. ✅[/]");
+        }
+        catch (Exception ex)
+        {
+            Message.Show($"[red]Não foi possível atualizar o usuário. {ex.Message} 😅[/]");
+        }
+    }
 }
