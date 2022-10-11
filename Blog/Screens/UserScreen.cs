@@ -11,6 +11,7 @@ public static class UserScreen
             new MenuItem { Operation = Operations.Create, Title="Cadastrar Usuário" },
             new MenuItem { Operation = Operations.Read, Title="Listar Usuários" },
             new MenuItem { Operation = Operations.Update, Title="Atualizar Usuário" },
+            new MenuItem { Operation = Operations.Link, Title="Vincular Perfil" },
             new MenuItem { Operation = Operations.GoBack, Title="Voltar" },
             new MenuItem { Operation = Operations.Exit, Title="Sair" }
         };
@@ -36,6 +37,11 @@ public static class UserScreen
                 Load();
                 break;
 
+            case Operations.Link:
+                AddRoles();
+                Load();
+                break;
+
             case Operations.Exit:
                 Screen.Quit();
                 break;
@@ -48,6 +54,50 @@ public static class UserScreen
                 Message.Show("[red]Opção inválida 😅.[/]");
                 Load();
                 break;
+        }
+    }
+
+    private static void AddRoles()
+    {
+        Write(new Rule("[yellow]Vincular Perfil ao Usuário[/]")
+            .RuleStyle("grey")
+            .LeftAligned()
+        );
+
+        try
+        {
+            var id = AskId();
+            var repository = new UserRepository(Database.Connection);
+            var user = repository.GetByIdWithRoles(id);
+
+            if (user is null)
+            {
+                Message.Show("[yellow]Usuário não encontrado.[/]");
+                return;
+            }
+
+            ShowPreview(user.Name, user.Email, user.Bio, user.Image, user.Slug, user.Roles);
+
+            user.AddRoles(SelectRoles());
+
+            ShowPreview(user.Name, user.Email, user.Bio, user.Image, user.Slug, user.Roles);
+
+            if (Confirm("Salvar dados do usuário?"))
+            {
+                foreach (var role in user.Roles)
+                {
+                    if (!repository.HasRole(user.Id, role.Id))
+                    {
+                        repository.AddRole(user.Id, role.Id);
+                    }
+                }
+
+                Message.Show("[green]Perfil de Usuário vinculado com sucesso. ✅[/]");
+            }
+        }
+        catch (Exception ex)
+        {
+            Message.Show($"[red]Não foi possível vincular perfil ao usuário. {ex.Message} 😅[/]");
         }
     }
 

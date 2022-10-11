@@ -65,7 +65,7 @@ Há links específicos para cada commit de finalização de uma aula.
 - [x] Cadastrar um usuário
 - [x] Cadastrar um perfil
 - [x] Listar perfis
-- [ ] Vincular um usuário a um perfil
+- [x] Vincular um usuário a um perfil
 - [ ] Cadastrar uma categoria
 - [x] Cadastrar uma tag
 - [ ] Cadastrar um post

@@ -8,6 +8,7 @@ public enum Operations
     Read,
     Update,
     Delete,
+    Link,
     TagManager,
     UserManager,
     RoleManager
