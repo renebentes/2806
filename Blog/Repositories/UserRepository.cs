@@ -55,13 +55,13 @@ public class UserRepository : Repository<User>
                     usr = user;
 
                     if (role is not null)
-                        usr.Roles.Add(role);
+                        usr.AddRole(role);
 
                     users.Add(usr);
                 }
                 else
                 {
-                    usr.Roles.Add(role);
+                    usr.AddRole(role);
                 }
 
                 return user;
@@ -95,13 +95,13 @@ public class UserRepository : Repository<User>
                     usr = user;
 
                     if (role is not null)
-                        usr.Roles.Add(role);
+                        usr.AddRole(role);
 
                     users.Add(usr);
                 }
                 else
                 {
-                    usr.Roles.Add(role);
+                    usr.AddRole(role);
                 }
 
                 return user;

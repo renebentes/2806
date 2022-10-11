@@ -105,7 +105,7 @@ public static class UserScreen
                 Slug = slug
             };
 
-            user.Roles.AddRange(selectedRoles);
+            user.AddRoles(selectedRoles);
             CreateUser(user);
         }
     }
@@ -247,7 +247,7 @@ public static class UserScreen
             user.Image = image;
             user.Slug = slug;
 
-            user.Roles.AddRange(selectedRoles);
+            user.AddRoles(selectedRoles);
             UpdateUser(user);
         }
     }
