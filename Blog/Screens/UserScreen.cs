@@ -51,6 +51,30 @@ public static class UserScreen
         }
     }
 
+    private static string AskBio()
+        => Prompt(new TextPrompt<string>("Biografia:")
+            .AllowEmpty());
+
+    private static string AskEmail()
+        => Ask<string>("E-mail:");
+
+    private static int AskId()
+        => Ask<int>("Id:");
+
+    private static string AskImage()
+        => Prompt(new TextPrompt<string>("Foto:")
+            .AllowEmpty());
+
+    private static string AskName()
+        => Ask<string>("Nome:");
+
+    private static string AskPassword()
+        => Prompt(new TextPrompt<string>("Senha:")
+            .Secret());
+
+    private static string AskSlug()
+        => Ask<string>("Slug:");
+
     private static void CreateUser()
     {
         Write(new Rule("[yellow]Novo Usuário[/]")
@@ -85,30 +109,6 @@ public static class UserScreen
             CreateUser(user);
         }
     }
-
-    private static string AskBio()
-        => Prompt(new TextPrompt<string>("Biografia:")
-            .AllowEmpty());
-
-    private static string AskEmail()
-        => Ask<string>("E-mail:");
-
-    private static int AskId()
-        => Ask<int>("Id:");
-
-    private static string AskImage()
-        => Prompt(new TextPrompt<string>("Foto:")
-            .AllowEmpty());
-
-    private static string AskName()
-        => Ask<string>("Nome:");
-
-    private static string AskPassword()
-        => Prompt(new TextPrompt<string>("Senha:")
-            .Secret());
-
-    private static string AskSlug()
-        => Ask<string>("Slug:");
 
     private static void CreateUser(User user)
     {

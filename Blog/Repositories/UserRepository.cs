@@ -21,8 +21,8 @@ public class UserRepository : Repository<User>
                 INSERT INTO
                     [UserRole]
                 VALUES (
-                    @UserId,
-                    @RoleId
+                    @userId,
+                    @roleId
                 )";
 
         _connection.Execute(insertUserRole, new
