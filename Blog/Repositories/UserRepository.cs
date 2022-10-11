@@ -1,6 +1,7 @@
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace Blog.Repositories;
 
@@ -12,6 +13,23 @@ public class UserRepository : Repository<User>
         : base(connection)
     {
         _connection = connection;
+    }
+
+    public void AddRole(int userId, int roleId, IDbTransaction? transaction = null)
+    {
+        var insertUserRole = @"
+                INSERT INTO
+                    [UserRole]
+                VALUES (
+                    @UserId,
+                    @RoleId
+                )";
+
+        _connection.Execute(insertUserRole, new
+        {
+            userId,
+            roleId
+        }, transaction);
     }
 
     public IEnumerable<User> GetAllWithRoles()
@@ -60,21 +78,9 @@ public class UserRepository : Repository<User>
             user.Id = 0;
             _connection.Insert(user, transaction);
 
-            var insertUserRole = @"
-                INSERT INTO
-                    [UserRole]
-                VALUES (
-                    @UserId,
-                    @RoleId
-                )";
-
             foreach (var role in user.Roles)
             {
-                _connection.Execute(insertUserRole, new
-                {
-                    userId = user.Id,
-                    roleId = role.Id
-                }, transaction);
+                AddRole(user.Id, role.Id, transaction);
             }
             transaction.Commit();
         }
