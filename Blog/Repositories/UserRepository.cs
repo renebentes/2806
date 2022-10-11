@@ -95,6 +95,20 @@ public class UserRepository : Repository<User>
         return user;
     }
 
+    public bool HasRole(int userId, int roleId, IDbTransaction? transaction = null)
+    {
+        const string query = @"
+            SELECT
+                COUNT(1)
+            FROM
+                [UserRole]
+            WHERE
+                [UserId] = @userId AND
+                [RoleId] = @roleId";
+
+        return _connection.ExecuteScalar<bool>(query, new { userId, roleId }, transaction);
+    }
+
     public override void Create(User user)
     {
         using var transaction = _connection.BeginTransaction();
